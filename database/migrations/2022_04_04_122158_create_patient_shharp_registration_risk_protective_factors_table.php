@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePatientShharpRegistrationRiskProtectiveFactorsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -34,4 +34,4 @@ class CreatePatientShharpRegistrationRiskProtectiveFactorsTable extends Migratio
     {
         Schema::dropIfExists('patient_shharp_registration_risk_protective_factors');
     }
-}
+};

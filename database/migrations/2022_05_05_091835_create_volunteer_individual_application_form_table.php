@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVolunteerIndividualApplicationFormTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -42,4 +42,4 @@ class CreateVolunteerIndividualApplicationFormTable extends Migration
     {
         Schema::dropIfExists('volunteer_individual_application_form');
     }
-}
+};

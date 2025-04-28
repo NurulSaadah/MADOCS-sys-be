@@ -74,9 +74,18 @@ return [
         ],
 
         'redis' => [
-            'driver' => 'redis',
-            'connection' => 'cache',
-            'lock_connection' => 'default',
+            'client' => 'phpredis', // Use 'phpredis' or 'predis'
+            'options' => [
+                'cluster' => 'redis',
+                'prefix' => env('CACHE_PREFIX', 'laravel_cache_'),
+            ],
+            'default' => [
+                'url' => env('REDIS_URL'),
+                'host' => env('REDIS_HOST', '127.0.0.1'),
+                'password' => env('REDIS_PASSWORD', null),
+                'port' => env('REDIS_PORT', '6379'),
+                'database' => env('REDIS_DB', '0'),
+            ],
         ],
 
         'dynamodb' => [

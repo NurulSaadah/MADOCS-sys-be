@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use phpDocumentor\Reflection\Types\Nullable;
 
-class AddHarmFieldsToSharpRegistraionFinalStepTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -32,4 +32,4 @@ class AddHarmFieldsToSharpRegistraionFinalStepTable extends Migration
             $table->dropColumn('harm_time');
         });
     }
-}
+};

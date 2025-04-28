@@ -11,36 +11,33 @@ class RolesController extends Controller
 {
     public function getRoleList()
     {
-        $rolelist= Roles::select('id', 'role_name')
-        ->where('status','=','0')
-        ->orderBy('role_name','asc')
-        ->get();
+        $rolelist = Roles::select('id', 'role_name')
+            ->where('status', '=', '0')
+            ->orderBy('role_name', 'asc')
+            ->get();
         return response()->json(["message" => "List of Roles :", 'list' => $rolelist, "code" => 200]);
     }
-
-
-    /////////////////////////////////////////////////////////////////////////////
     public function index()
     {
-        $list= Roles::select('id', 'role_name', 'status')->orderBy('role_name','asc')->get();
+        $list = Roles::select('id', 'role_name', 'status')->orderBy('role_name', 'asc')->get();
         return response()->json(["message" => "List.", 'list' => $list, "code" => 200]);
     }
 
     public function screenaccessroleslist()
     {
-        $list= Roles::select('id', 'role_name', 'status')->where('status','=','0')->orderBy('role_name','asc')->get();
+        $list = Roles::select('id', 'role_name', 'status')->where('status', '=', '0')->orderBy('role_name', 'asc')->get();
         return response()->json(["message" => "List.", 'list' => $list, "code" => 200]);
     }
 
     public function branch_view_list()
     {
-        $list= Roles::select('id', 'role_name', 'status')->where('status','=','0')->orderBy('role_name','asc')->get();
+        $list = Roles::select('id', 'role_name', 'status')->where('status', '=', '0')->orderBy('role_name', 'asc')->get();
         return response()->json(["message" => "List.", 'list' => $list, "code" => 200]);
     }
 
     public function system_admin_role()
     {
-        $list= Roles::select('id', 'role_name', 'status')->where('role_name','=','System Admin')->orderBy('role_name','asc')->get();
+        $list = Roles::select('id', 'role_name', 'status')->where('role_name', '=', 'System Admin')->orderBy('role_name', 'asc')->get();
         return response()->json(["message" => "List.", 'list' => $list, "code" => 200]);
     }
 

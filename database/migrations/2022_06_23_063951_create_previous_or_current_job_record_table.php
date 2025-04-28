@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePreviousOrCurrentJobRecordTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -34,4 +34,4 @@ class CreatePreviousOrCurrentJobRecordTable extends Migration
     {
         Schema::dropIfExists('previous_or_current_job_record');
     }
-}
+};

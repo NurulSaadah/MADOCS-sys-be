@@ -14,13 +14,17 @@ class Kernel extends HttpKernel
      * @var array<int, class-string|string>
      */
     protected $middleware = [
-        \App\Http\Middleware\Cors::class,
-        \App\Http\Middleware\TrustProxies::class,
-        \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\TrimStrings::class,
-        \App\Http\Middleware\Cors::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        // Security Middleware
+        \App\Http\Middleware\Cors::class, // Handle CORS policies
+        \App\Http\Middleware\TrustProxies::class, // Trust proxy headers
+        \App\Http\Middleware\PreventRequestsDuringMaintenance::class, // Block access during maintenance
+        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class, // Validate request size
+        \App\Http\Middleware\TrimStrings::class, // Trim input strings
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class, // Convert empty strings to null
+        \Spatie\ResponseCache\Middlewares\CacheResponse::class, // Cache responses globally
+
+        // Performance Middleware
+
     ];
 
     /**
@@ -30,18 +34,42 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Http\Middleware\VerifyCsrfToken::class,
+            'throttle:40,1', // Rate limit for web routes
+            \App\Http\Middleware\EncryptCookies::class, // Encrypt cookies
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class, // Queue cookies for response
+            \Illuminate\Session\Middleware\StartSession::class, // Start session
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class, // Share session errors
+            \App\Http\Middleware\VerifyCsrfToken::class, // CSRF protection
+            \Illuminate\Routing\Middleware\SubstituteBindings::class, // Substitute route bindings
+            \App\Http\Middleware\GzipMiddleware::class,
+        ],
+        
+        'api' => [
+            'throttle:100,1', // Allows 100 requests per minute for API
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            // 'auth:api', // Require API token authentication for all API routes
+            \App\Http\Middleware\GzipMiddleware::class,
+            // 'jwt.auth', // JWT authentication middleware
+            \Spatie\ResponseCache\Middlewares\CacheResponse::class, // Cache API responses
+            // \App\Http\Middleware\EnforceApiHeaders::class, // Enforce API only
+        ],
+        'apiPublic' => [
+            'throttle:60,1', // Allows 100 requests per minute for API
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Spatie\ResponseCache\Middlewares\CacheResponse::class, // Cache API responses
+            \App\Http\Middleware\GzipMiddleware::class,
+            // \App\Http\Middleware\EnforceApiHeaders::class, // Enforce API only
+        ],
+        'apiInternal' => [
+            'throttle:100,1', // Allows 100 requests per minute for API
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'auth:api', // Require API token authentication for all API routes
+            \App\Http\Middleware\GzipMiddleware::class,
+            'jwt.auth', // JWT authentication middleware
+            \Spatie\ResponseCache\Middlewares\CacheResponse::class, // Cache API responses
+            \App\Http\Middleware\EnforceApiHeaders::class, // Enforce API only
         ],
 
-        'api' => [
-            'throttle:api',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
     ];
 
     /**
@@ -61,9 +89,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
+        'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class, // JWT middleware
         'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
         'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
-        'cors' => \App\Http\Middleware\Cors::class,
+        'cors' => \App\Http\Middleware\Cors::class, // Handle CORS
     ];
 }

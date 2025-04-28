@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJobTransitionReport extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -79,4 +79,4 @@ class CreateJobTransitionReport extends Migration
     {
         Schema::dropIfExists('job_transition_report');
     }
-}
+};

@@ -19,18 +19,18 @@ class Cors
         header("Access-Control-Allow-Origin: *");
 
         $headers = [
-            'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS, PUT, DELETE',
-            'Access-Control-Allow-Headers' => 'Content-Type, X-Auth-Token, Origin, Authorization'
+            'Access-Control-Allow-Methods' => 'POST, GET, OPTIONS', // Remove PUT, DELETE if not used
+            'Access-Control-Allow-Headers' => 'Content-Type, X-Auth-Token, Origin, Authorization',
+            'Access-Control-Allow-Credentials' => 'true',  // Allow credentials (if needed)
+            'Access-Control-Max-Age' => '3600',  // Cache the preflight response for 1 hour
         ];
         if ($request->getMethod() == "OPTIONS") {
-            return response('OK')
+            return response('OK',200)
                 ->withHeaders($headers);
         }
 
         $response = $next($request);
-        foreach ($headers as $key => $value)
-            $response->header($key, $value);
 
-        return $response;
+        return $response->withHeaders($headers);
     }
 }

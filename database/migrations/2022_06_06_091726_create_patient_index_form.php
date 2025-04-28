@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePatientIndexForm extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -73,4 +73,4 @@ class CreatePatientIndexForm extends Migration
     {
         Schema::dropIfExists('patient_index_form');
     }
-}
+};

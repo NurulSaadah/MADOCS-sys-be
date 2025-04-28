@@ -38,4 +38,19 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($request->is('api/*')) {
+            return response()->json([
+                'error' => 'Resource not found or invalid request.'
+            ], 404);
+        }
+
+        // Return the custom 404 page for web requests
+        return response()->view('errors.404', [], 404);
+
+        return parent::render($request, $exception);
+    }
+
 }

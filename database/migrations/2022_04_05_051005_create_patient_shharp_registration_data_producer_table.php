@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePatientShharpRegistrationDataProducerTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -36,4 +36,4 @@ class CreatePatientShharpRegistrationDataProducerTable extends Migration
     {
         Schema::dropIfExists('patient_shharp_registration_data_producer');
     }
-}
+};

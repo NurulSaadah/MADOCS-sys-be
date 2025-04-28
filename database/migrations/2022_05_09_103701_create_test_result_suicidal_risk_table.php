@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTestResultSuicidalRiskTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -33,4 +33,4 @@ class CreateTestResultSuicidalRiskTable extends Migration
     {
         Schema::dropIfExists('test_result_suicidal_risk');
     }
-}
+};

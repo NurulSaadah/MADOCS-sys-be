@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSharpRegistraionSelfHarmResultTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -32,4 +32,4 @@ class CreateSharpRegistraionSelfHarmResultTable extends Migration
     {
         Schema::dropIfExists('sharp_registraion_self_harm_result');
     }
-}
+};

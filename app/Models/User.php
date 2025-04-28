@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Models\Roles;
 use App\Models\UserModules;
 
@@ -55,12 +55,16 @@ class User extends Authenticatable implements JWTSubject
     }
     public function roles()
     {
-        return $this->belongsToMany(Roles::class, 'role_user', 'user_id', 'role_id');
+        return $this->belongsToMany(Roles::class, 'role_id');
     }
+    // public function modules()
+    // {
+    //     return $this->hasMany(Modules::class, 'user_id', 'id');
+    // }
 
-    public function modules()
-    {
-        return $this->hasMany(UserModules::class, 'user_id', 'id');
-    }
+    public function screenAccessRoles()
+{
+    return $this->hasMany(ScreenAccessRoles::class, 'staff_id', 'staff_id');
+}
    
 }

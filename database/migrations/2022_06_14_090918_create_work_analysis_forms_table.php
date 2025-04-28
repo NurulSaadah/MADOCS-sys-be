@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkAnalysisFormsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -74,4 +74,4 @@ class CreateWorkAnalysisFormsTable extends Migration
     {
         Schema::dropIfExists('work_analysis_forms');
     }
-}
+};
